@@ -346,31 +346,31 @@ Expected:
 
 Docker Hub `Settings -> Personal access tokens` shows token `github-actions` with Read & Write access - Used as `DOCKER_PASSWORD` secret - Proof of Docker auth setup.
 
-[Demo 1](screenshots/demo1-docker-pat.png)
+![Demo 1](screenshots/demo1-docker-pat.png)
 
 ### Demo 2 - GitHub Repository Secrets
 
 GitHub `Settings -> Secrets and variables -> Actions` shows 2 repository secrets `DOCKER_USERNAME` + `DOCKER_PASSWORD` with Last updated now - Proof of CI secrets configuration for Project 85.
 
-[Demo 2](screenshots/demo2-github-secrets.png)
+![Demo 2](screenshots/demo2-github-secrets.png)
 
 ### Demo 3 - Workflow File in Eclipse
 
 Eclipse STS `Project Explorer -> 85-github-actions-ci -> .github/workflows/docker-ci.yml` open with full workflow code - `on: push main` + `build-and-push` job visible - Proof of workflow file creation.
 
-[Demo 3](screenshots/demo3-workflow-eclipse.png)
+![Demo 3](screenshots/demo3-workflow-eclipse.png)
 
 ### Demo 4 - GitHub Actions Running - GREEN Success
 
 GitHub `Actions Tab -> Docker CI - Build & Push` workflow run shows GREEN tick `Success` - Duration 3m 42s - Commit `Project 85 - GitHub Actions CI` - Proof of CI working on push to main.
 
-[Demo 4](screenshots/demo4-actions-running.png)
+![Demo 4](screenshots/demo4-actions-running.png)
 
 ### Demo 5 - Docker Hub Image - latest Tag Pushed
 
 Docker Hub `ravitejadev950/85-github-actions-ci:tags` shows `latest` tag with size ~180MB + Pushed time `now / 1 minute ago` - Proof of auto push from GitHub Actions to Docker Hub.
 
-[Demo 5](screenshots/demo5-dockerhub-image.png)
+![Demo 5](screenshots/demo5-dockerhub-image.png)
 
 ---
 
