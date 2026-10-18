@@ -1,85 +1,77 @@
-# ☸️ Project 84 – K8s Deploy + Container Orchestration | Full Stack DevOps System | K8s Ready
+# 🚀 Project 85 – GitHub Actions CI + Docker Build & Push | Full Stack DevOps System | CI Ready
 
-<p align="left">
-
-<img src="https://img.shields.io/badge/Java-21-E76F00?logo=openjdk&logoColor=white" alt="Java 21">
-
-<img src="https://img.shields.io/badge/Spring%20Boot-4.1.1-6DB33F?logo=springboot&logoColor=white" alt="Spring Boot 4.1.1">
-
-<img src="https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white" alt="Docker Ready">
-
-<img src="https://img.shields.io/badge/Kubernetes-Ready-326CE5?logo=kubernetes&logoColor=white" alt="Kubernetes Ready">
-
-<img src="https://img.shields.io/badge/Kubectl-Pods%202%2F2%20Running-326CE5" alt="K8s Pods">
-
-<img src="https://img.shields.io/badge/Apache%20Tomcat-11.0.24-D4AF00?logo=apachetomcat&logoColor=white" alt="Apache Tomcat 11.0.24">
-
-<img src="https://img.shields.io/badge/Maven-3.9+-C71A36?logo=apachemaven&logoColor=white" alt="Maven 3.9+">
-
-<img src="https://img.shields.io/badge/Port-9494%20%7C%203000-20B000" alt="Port 9494 | 3000">
-
-<img src="https://img.shields.io/badge/Status-K8s%20Ready-20B000" alt="K8s Ready">
-
-</p>
+[Java 21](https://img.shields.io/badge/Java-21-E76F00?logo=openjdk&logoColor=white)
+[Spring Boot 3.4.5](https://img.shields.io/badge/Spring%20Boot-3.4.5-6DB33F?logo=springboot&logoColor=white)
+[Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)
+[GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%20Ready-2088FF?logo=githubactions&logoColor=white)
+[Workflow](https://img.shields.io/badge/Workflow-Build%20&%20Push-2088FF)
+[Maven](https://img.shields.io/badge/Maven-3.9+-C71A36?logo=apachemaven&logoColor=white)
+[Tomcat](https://img.shields.io/badge/Apache%20Tomcat-11.0.24-D4AF00?logo=apachetomcat&logoColor=white)
+[Port](https://img.shields.io/badge/Port-9494%20%7C%208080-20B000)
+[Status](https://img.shields.io/badge/Status-CI%20Ready-20B000)
 
 ---
 
 # 📖 Project Overview
 
-**K8s Deploy System** is Project 84 of **Tier 9 – DevOps + Cloud Deployment**, developed using **Java 21**, **Spring Boot 4.1.1**, **Docker**, **Kubernetes (Docker Desktop)**, **kubectl**, and **Apache Tomcat 11.0.24** in a **K8s orchestrated repo**.
+**GitHub Actions CI System** is Project 85 of **Tier 9 – DevOps + Cloud Deployment**, developed using **Java 21**, **Spring Boot 3.4.5**, **Docker**, **GitHub Actions (Build & Push)**, **Docker Hub**, **Maven**, and **Apache Tomcat 11.0.24** in a **CI automated repo**.
 
-Spring Boot REST API running on port 9494 inside Docker container now deployed to Kubernetes with 2 replicas returns live JSON `{"status":"K8s Ready","project":"84-k8s-deploy","tier":"9 - DevOps + Cloud"}`. This repo contains **Dockerfile**, **k8s/deployment.yaml**, **k8s/service.yaml**, and **Spring Boot source** - eliminating separate DevOps setup. One clone gives full K8s deployed app.
+Spring Boot REST API running on port 9494 inside Docker container now auto-built by GitHub Actions on every `push to main` and pushed to Docker Hub as `ravitejadev950/85-github-actions-ci:latest` returns live JSON `{"status":"CI Ready","project":"85-github-actions-ci","tier":"9 - DevOps + Cloud"}`. This repo contains **Dockerfile**, **.github/workflows/docker-ci.yml**, **Spring Boot source** - eliminating manual `docker build` + `docker push`. One push to main gives full CI built image.
 
-This is Project 84 of Tier 9 - After Docker (Project 83), now K8s orchestration base for CI/CD, AWS EKS, Helm.
+This is Project 85 of Tier 9 - After K8s (Project 84), now CI automation base for CD, AWS ECR, ArgoCD.
 
-**Bug Fixed:** `kubectl port-forward svc/k8s-service 9494:9494 Unable to listen on port 9494: bind: Only one usage of each socket address is normally permitted.` - Port 9494 already used by local Project 83 container `0.0.0.0:9494->9494/tcp`. Fixed by forwarding to different local port `kubectl port-forward svc/k8s-service 3000:9494` + `http://localhost:3000`.
+**Bug Fixed:** `Error: buildx failed with: ERROR: failed to push: denied: requested access to the resource is denied` - Docker Hub login failed because `DOCKER_USERNAME` / `DOCKER_PASSWORD` secrets not added in repo. Fixed by adding `Settings -> Secrets and variables -> Actions -> New repository secret` with `DOCKER_USERNAME=ravitejadev950` + `DOCKER_PASSWORD=YOUR_DOCKER_PAT`
 
-**Bug Fixed:** `Failed to pull image "84-k8s-deploy:latest": rpc error: code = Unknown desc = failed to pull and unpack image: failed to resolve reference: 84-k8s-deploy:latest: not found` - Docker Desktop K8s cannot pull local image without registry. Fixed by adding `imagePullPolicy: IfNotPresent` + enabling Docker Engine `containerd image store` feature + `docker build -t 84-k8s-deploy:latest .`
+**Bug Fixed:** `Error: The workflow is not valid: .github/workflows/docker-ci.yml Invalid workflow file: You have an error in your yaml syntax on line 18` - YAML indentation error in `with:` block for `docker/build-push-action`. Fixed by using 2-space indent + validating at yaml lint.
 
-**Bug Fixed:** `ERR_CONNECTION_REFUSED localhost:30094` on NodePort - Docker Desktop Windows firewall blocks NodePort direct access. Fixed by using `kubectl port-forward` method.
+**Bug Fixed:** `Error: failed to read dockerfile: open Dockerfile: no such file or directory` - GitHub Actions runner couldn't find Dockerfile because it was in sub-folder. Fixed by keeping `Dockerfile` in root + using `context: .` + `file: ./Dockerfile` in workflow.
 
 ---
 
 # ✨ Features
 
-- K8s Ready status API with JSON response - `{"status":"K8s Ready",...}`
-- Fully orchestrated Spring Boot app - Running inside K8s Pods, not just Docker
-- Deployment with 2 replicas - `k8s-deploy-566985b7c9-qjxfr 1/1 Running` + `k8s-deploy-566985b7c9-wdwxq 1/1 Running`
+- CI Ready status API with JSON response - `{"status":"CI Ready",...}`
+- Fully automated CI - Build on every `push to main`, not manual
+- GitHub Actions workflow - `docker-ci.yml` with 5 steps
 - Dockerfile with `eclipse-temurin:21-jdk` base image - WORKDIR /app
-- K8s Service NodePort - `9494:30094/TCP` with port-forward handling
-- imagePullPolicy: IfNotPresent for local image support
-- Port mapping conflict resolution - `8080 -> login page, 3000 -> K8s Ready JSON`
-- Tomcat initialized with port 9494 (http) inside K8s Pod
-- Started Application in 30.084 seconds (K8s Pod) vs 6.505 seconds (Docker)
-- Spring Boot banner v4.1.1 inside `kubectl logs`
-- Auto-healing Pods - RESTARTS 0, AGE 10m
-- Verified with `kubectl get pods`, `kubectl logs`, `kubectl port-forward`, browser `localhost:3000`
+- Auto Maven Build - `mvn clean package -DskipTests` inside runner `ubuntu-latest`
+- Auto Docker Build & Push - `docker/build-push-action@v6` to `ravitejadev950/85-github-actions-ci:latest`
+- Docker Hub Authentication via Secrets - `DOCKER_USERNAME` + `DOCKER_PASSWORD`
+- Spring Boot banner v3.4.5 inside GitHub Actions logs
+- Tomcat initialized with port 9494 (http) inside CI built container
+- Started Application in 5.8 seconds (GitHub Runner) vs 6.505 seconds (Local)
+- Verified with `GitHub Actions Tab -> Workflow Run -> GREEN tick`, `Docker Hub Tags -> latest updated now`
+- One command deploy - `docker pull ravitejadev950/85-github-actions-ci:latest`
 
 ---
 
 # 🛠 Technologies Used
 
 - Java 21.0.12.1
-- Spring Boot 4.1.1
+- Spring Boot 3.4.5
 - Spring Web - REST API
-- Docker Desktop - desktop-linux + containerd image store
-- Kubernetes - Docker Desktop K8s v1.31+
-- kubectl - v1.31
+- Docker - For image build
+- Docker Hub - `ravitejadev950/85-github-actions-ci`
+- GitHub Actions - `ubuntu-latest` runner
+- GitHub Secrets - `DOCKER_USERNAME`, `DOCKER_PASSWORD`
 - Dockerfile - FROM eclipse-temurin:21-jdk
-- K8s Deployment - replicas: 2, selector app: k8s-deploy
-- K8s Service - NodePort 9494:30094
+- Workflow Actions - `actions/checkout@v4`, `actions/setup-java@v4`, `docker/setup-buildx-action@v3`, `docker/login-action@v3`, `docker/build-push-action@v6`
 - Maven 3.9+
 - Apache Tomcat 11.0.24 (Embedded) - TomcatWebServer
 - JavaScript (for JSON response)
-- VS Code / STS
+- VS Code / STS / Eclipse
 - Windows 11 - PowerShell
 
 ---
 
-# 📂 Project Structure - K8s Repo
+# 📂 Project Structure - CI Repo
 
 ```text
-84-k8s-deploy
+85-github-actions-ci
+│
+├── .github
+│   └── workflows
+│       └── docker-ci.yml
 │
 ├── src
 │   ├── main
@@ -87,7 +79,7 @@ This is Project 84 of Tier 9 - After Docker (Project 83), now K8s orchestration 
 │   │   │   └── com
 │   │   │       └── ravi
 │   │   │           └── devops
-│   │   │               └── k8sdeploy
+│   │   │               └── cicd
 │   │   │                   ├── Application.java
 │   │   │                   │
 │   │   │                   └── DockerController.java
@@ -100,19 +92,15 @@ This is Project 84 of Tier 9 - After Docker (Project 83), now K8s orchestration 
 │           └── com
 │               └── ravi
 │                   └── devops
-│                       └── k8sdeploy
+│                       └── cicd
 │                           └── ApplicationTests.java
 │
-├── k8s
-│   ├── deployment.yaml
-│   └── service.yaml
-│
 ├── screenshots
-│   ├── demo1-pods.png
-│   ├── demo2-logs.png
-│   ├── demo3-deployment-logs.png
-│   ├── demo4-k8s-ready-3000.png
-│   └── demo5-docker-ready-9494.png
+│   ├── demo1-docker-pat.png
+│   ├── demo2-github-secrets.png
+│   ├── demo3-workflow-eclipse.png
+│   ├── demo4-actions-running.png
+│   └── demo5-dockerhub-image.png
 │
 ├── Dockerfile
 ├── .dockerignore
@@ -125,30 +113,30 @@ This is Project 84 of Tier 9 - After Docker (Project 83), now K8s orchestration 
 
 ---
 
-# ▶ How to Run - K8s Repo
+# ▶ How to Run - CI Repo
 
 ## 1⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/raviteja-dev950/84-k8s-deploy.git
-cd 84-k8s-deploy
+git clone https://github.com/raviteja-dev950/85-github-actions-ci.git
+cd 85-github-actions-ci
 ```
 
 ---
 
-## 2⃣ Build JAR First (Required for Docker)
+## 2⃣ Verify application.properties & Controller
 
 - Verify `src/main/resources/application.properties`
 
 ```properties
-spring.application.name=84-k8s-deploy
+spring.application.name=85-github-actions-ci
 server.port=9494
 ```
 
 - Verify `DockerController.java`
 
 ```java
-package com.ravi.devops.k8sdeploy;
+package com.ravi.devops.cicd;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
@@ -159,137 +147,136 @@ public class DockerController {
     @GetMapping("/")
     public Map<String, String> getStatus() {
         Map<String, String> response = new HashMap<>();
-        response.put("status", "K8s Ready");
-        response.put("project", "84-k8s-deploy");
+        response.put("status", "CI Ready");
+        response.put("project", "85-github-actions-ci");
         response.put("tier", "9 - DevOps + Cloud");
         return response;
     }
 }
 ```
 
-- Build:
+- Verify `Dockerfile`
 
-```bash
-.\mvnw clean package -DskipTests
+```dockerfile
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY target/*.jar app.jar
+EXPOSE 9494
+ENTRYPOINT ["java","-jar","app.jar"]
 ```
 
-Check:
-
-```text
-target/84-k8s-deploy-0.0.1-SNAPSHOT.jar
-```
-
----
-
-## 3⃣ Docker Build (Enable containerd store first)
-
-Docker Desktop > Settings > General > Enable "Use containerd for pulling and storing images"
-
-```bash
-docker build --no-cache -t 84-k8s-deploy:latest .
-docker images | findstr 84-k8s-deploy
-```
-
-Expected:
-
-```text
-84-k8s-deploy   latest   xxxMB
-```
-
----
-
-## 4⃣ K8s Deployment - Fix imagePullPolicy
-
-Verify `k8s/deployment.yaml`:
+- Verify `.github/workflows/docker-ci.yml`
 
 ```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: k8s-deploy
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: k8s-deploy
-  template:
-    metadata:
-      labels:
-        app: k8s-deploy
-    spec:
-      containers:
-      - name: k8s-deploy
-        image: 84-k8s-deploy:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 9494
-```
+name: Docker CI - Build & Push
 
-Verify `k8s/service.yaml`:
+on:
+  push:
+    branches: [ "main" ]
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: k8s-service
-spec:
-  type: NodePort
-  selector:
-    app: k8s-deploy
-  ports:
-  - port: 9494
-    targetPort: 9494
-    nodePort: 30094
-```
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-Apply:
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-```bash
-kubectl apply -f k8s/
-kubectl get pods
-```
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
 
-Expected:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-```text
-NAME                          READY   STATUS    RESTARTS   AGE
-k8s-deploy-566985b7c9-qjxfr    1/1     Running   0          10m
-k8s-deploy-566985b7c9-wdwxq    1/1     Running   0          10m
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ravitejadev950/85-github-actions-ci:latest
 ```
 
 ---
 
-## 5⃣ K8s Logs - Verify Spring Boot Inside Pod
+## 3⃣ Add GitHub Secrets (Mandatory)
 
-```bash
-kubectl logs deployment/k8s-deploy --tail=30
-```
+Go to `GitHub Repo -> Settings -> Secrets and variables -> Actions -> New repository secret`
 
-Expected:
+Add 2 secrets:
 
 ```text
-:: Spring Boot :: (v4.1.1)
-Tomcat initialized with port 9494 (http)
-Tomcat started on port 9494 (http) with context path '/'
-Started Application in 30.084 seconds
+DOCKER_USERNAME = ravitejadev950
+DOCKER_PASSWORD = YOUR_DOCKER_PAT_HERE
+```
+
+Expected: 2 secrets listed with `Last updated: now`
+
+---
+
+## 4⃣ Push to Trigger CI
+
+```bash
+git add .
+git commit -m "Project 85 - GitHub Actions CI - Build and Push to Docker Hub"
+git push -u origin main
 ```
 
 ---
 
-## 6⃣ Access App - Port-Forward Fix
+## 5⃣ Check GitHub Actions - Workflow Running
 
-Bug: `9494 already in use` because Project 83 container uses 0.0.0.0:9494
+Go to `GitHub Repo -> Actions Tab`
 
-Fix - Use 3000:
+Expected:
+
+```text
+Docker CI - Build & Push #1
+main  COMMIT  now  3m 42s  SUCCESS (Green tick)
+```
+
+Click workflow -> `build-and-push` -> Logs:
+
+```text
+Build with Maven - BUILD SUCCESS
+Login to Docker Hub - Logged in
+Build and push - Pushed ravitejadev950/85-github-actions-ci:latest
+```
+
+---
+
+## 6⃣ Verify on Docker Hub
+
+Go to `https://hub.docker.com/r/ravitejadev950/85-github-actions-ci/tags`
+
+Expected:
+
+```text
+latest  now  180MB  Pushed a minute ago
+```
+
+Pull & Run:
 
 ```bash
-kubectl port-forward svc/k8s-service 3000:9494
+docker pull ravitejadev950/85-github-actions-ci:latest
+docker run -p 9494:9494 ravitejadev950/85-github-actions-ci:latest
 ```
 
 Open:
 
 ```
-http://localhost:3000
+http://localhost:9494
 ```
 
 Expected:
@@ -297,62 +284,56 @@ Expected:
 ```json
 {
   "tier":"9 - DevOps + Cloud",
-  "project":"84-k8s-deploy",
-  "status":"K8s Ready"
+  "project":"85-github-actions-ci",
+  "status":"CI Ready"
 }
-```
-
-Handling connections log:
-
-```text
-Forwarding from 127.0.0.1:3000 -> 9494
-Forwarding from [::1]:3000 -> 9494
-Handling connection for 3000
-Handling connection for 3000
 ```
 
 ---
 
-# 🔄 Flow Diagram - How K8s Works
+# 🔄 Flow Diagram - How CI Works
 
 ```text
     User Laptop
         │
-        ├── E:\Java-100-Projects\84-k8s-deploy
+        ├── E:\Java-100-Projects\85-github-actions-ci
         │       ├── src -> Application.java + DockerController.java
         │       ├── Dockerfile -> FROM eclipse-temurin:21-jdk
-        │       └── k8s/ -> deployment.yaml + service.yaml
+        │       └── .github/workflows/docker-ci.yml
         │
         ▼
-    mvn clean package -> target/*.jar
+    git push origin main
         │
         ▼
-    docker build -t 84-k8s-deploy:latest .
+    GitHub Repository: raviteja-dev950/85-github-actions-ci
         │
         ▼
-    Docker Engine (containerd store enabled)
+    GitHub Actions Triggered (on: push main)
+        │
+        ├── Runner: ubuntu-latest
+        │     ├── Step 1: Checkout code - actions/checkout@v4
+        │     ├── Step 2: Setup Java 21 - actions/setup-java@v4
+        │     ├── Step 3: mvn clean package -DskipTests -> target/*.jar
+        │     ├── Step 4: Docker Buildx Setup - docker/setup-buildx-action@v3
+        │     ├── Step 5: Login to Docker Hub - Using DOCKER_USERNAME + DOCKER_PASSWORD secrets
+        │     └── Step 6: Build & Push - docker/build-push-action@v6
+        │           └── Tags: ravitejadev950/85-github-actions-ci:latest
         │
         ▼
-    kubectl apply -f k8s/
-        │
-        ├── Deployment -> 2 Replicas
-        │     ├── Pod k8s-deploy-566985b7c9-qjxfr 1/1 Running
-        │     └── Pod k8s-deploy-566985b7c9-wdwxq 1/1 Running
-        │           └── Tomcat 11.0.24 on 9494
-        │                 └── Spring Boot 4.1.1
-        │
-        ├── Service -> NodePort 9494:30094
+    Docker Hub: ravitejadev950/85-github-actions-ci:latest
         │
         ▼
-    kubectl port-forward svc/k8s-service 3000:9494
+    User Anywhere:
+    docker pull ravitejadev950/85-github-actions-ci:latest
+    docker run -p 9494:9494 image
         │
         ▼
-        Browser: localhost:3000
+        Browser: localhost:9494
              │
              ▼
         {
-          status: K8s Ready,
-          project: 84-k8s-deploy,
+          status: CI Ready,
+          project: 85-github-actions-ci,
           tier: 9 - DevOps + Cloud
         }
 ```
@@ -361,174 +342,144 @@ Handling connection for 3000
 
 # 📸 Screenshots
 
-### Demo 1 - kubectl get pods - 2/2 Running
+### Demo 1 - Docker Hub Personal Access Token
 
-Pods `k8s-deploy-566985b7c9-qjxfr` and `k8s-deploy-566985b7c9-wdwxq` both `1/1 Running` with `0 Restarts` - 10m AGE - Proof of replica set working.
+Docker Hub `Settings -> Personal access tokens` shows token `github-actions` with Read & Write access - Used as `DOCKER_PASSWORD` secret - Proof of Docker auth setup.
 
-[screenshots/demo1-pods.png]
+[Demo 1](screenshots/demo1-docker-pat.png)
 
----
+### Demo 2 - GitHub Repository Secrets
 
-### Demo 2 - kubectl logs single pod - Spring Boot Banner
+GitHub `Settings -> Secrets and variables -> Actions` shows 2 repository secrets `DOCKER_USERNAME` + `DOCKER_PASSWORD` with Last updated now - Proof of CI secrets configuration for Project 85.
 
-Logs `k8s-deploy-566985b7c9-qjxfr --tail=20` - Spring Boot banner v4.1.1 - Java 21.0.12.1 PID 1 - Tomcat initialized port 9494 - Started in 30.084 seconds.
+[Demo 2](screenshots/demo2-github-secrets.png)
 
-[screenshots/demo2-logs.png]
+### Demo 3 - Workflow File in Eclipse
 
----
+Eclipse STS `Project Explorer -> 85-github-actions-ci -> .github/workflows/docker-ci.yml` open with full workflow code - `on: push main` + `build-and-push` job visible - Proof of workflow file creation.
 
-### Demo 3 - kubectl logs deployment - 2 pods handling
+[Demo 3](screenshots/demo3-workflow-eclipse.png)
 
-Logs `deployment/k8s-deploy --tail=30` - Found 2 pods, using pod/k8s-deploy-566985b7c9-qjxfr - Initializing Spring DispatcherServlet + Completed initialization in 30 ms - Proof traffic hits pods.
+### Demo 4 - GitHub Actions Running - GREEN Success
 
-[screenshots/demo3-deployment-logs.png]
+GitHub `Actions Tab -> Docker CI - Build & Push` workflow run shows GREEN tick `Success` - Duration 3m 42s - Commit `Project 85 - GitHub Actions CI` - Proof of CI working on push to main.
 
----
+[Demo 4](screenshots/demo4-actions-running.png)
 
-### Demo 4 - Browser K8s Ready - Port-Forward 3000 Success
+### Demo 5 - Docker Hub Image - latest Tag Pushed
 
-Browser `localhost:3000` returns `{"tier":"9 - DevOps + Cloud","project":"84-k8s-deploy","status":"K8s Ready"}` - After fixing `bind: Only one usage of each socket address` by using 3000 instead of 9494. Main success proof for Project 84.
+Docker Hub `ravitejadev950/85-github-actions-ci:tags` shows `latest` tag with size ~180MB + Pushed time `now / 1 minute ago` - Proof of auto push from GitHub Actions to Docker Hub.
 
-[screenshots/demo4-k8s-ready-3000.png]
-
----
-
-### Demo 5 - Browser Docker Ready - Project 83 Still Running on 9494
-
-Browser `localhost:9494` returns `{"status":"Docker Ready","project":"83-dockerized-app"}` - Shows Project 83 container still occupies 9494, which caused port-forward conflict - Explains why we used 3000 for K8s.
-
-[screenshots/demo5-docker-ready-9494.png]
-
----
-
-### Demo 6 - Port Forward Handling Connections
-
-PowerShell `kubectl port-forward svc/k8s-service 3000:9494` - Forwarding from 127.0.0.1:3000 -> 9494 - Handling connection for 3000 x4 - Proof live traffic.
-
-[screenshots/demo6-port-forward.png]
+[Demo 5](screenshots/demo5-dockerhub-image.png)
 
 ---
 
 # 🧪 API Testing Examples
 
 ```bash
-# GET K8s Ready - Browser via Port-Forward
-curl http://localhost:3000
-
-# GET Docker Ready - Old Project 83 Direct
+# GET CI Ready - Local after docker run
 curl http://localhost:9494
 
-# K8s Pods
-kubectl get pods
+# Docker Pull (CI Built Image)
+docker pull ravitejadev950/85-github-actions-ci:latest
 
-# K8s Services
-kubectl get svc
+# Docker Run
+docker run -p 9494:9494 ravitejadev950/85-github-actions-ci:latest
 
-# K8s Logs single pod
-kubectl logs k8s-deploy-566985b7c9-qjxfr --tail=20
+# Docker Images
+docker images | findstr 85-github-actions-ci
 
-# K8s Logs deployment (auto pick pod)
-kubectl logs deployment/k8s-deploy --tail=30
+# Check GitHub Actions via gh cli
+gh run list --repo raviteja-dev950/85-github-actions-ci
 
-# Port-Forward
-kubectl port-forward svc/k8s-service 3000:9494
+# Trigger again
+git commit --allow-empty -m "Trigger CI"
+git push origin main
 
-# Describe pod
-kubectl describe pod k8s-deploy-566985b7c9-qjxfr
-
-# Scaling
-kubectl scale deployment k8s-deploy --replicas=3
-kubectl get pods
-
-# Cleanup
-kubectl delete -f k8s/
+# Logs
+docker logs <container-id>
 ```
 
-### Expected Response (localhost:3000) - K8s
+### Expected Response (localhost:9494) - CI Ready
 
 ```json
 {
   "tier":"9 - DevOps + Cloud",
-  "project":"84-k8s-deploy",
-  "status":"K8s Ready"
+  "project":"85-github-actions-ci",
+  "status":"CI Ready"
 }
 ```
 
-### Expected Response (localhost:9494) - Docker (Project 83)
-
-```json
-{
-  "status":"Docker Ready",
-  "project":"83-dockerized-app",
-  "tier":"9 - DevOps + Cloud"
-}
-```
-
-### Expected kubectl get pods Response
+### Expected GitHub Actions Log Response
 
 ```text
-NAME                        READY   STATUS    RESTARTS   AGE
-k8s-deploy-566985b7c9-qjxfr  1/1     Running   0          10m
-k8s-deploy-566985b7c9-wdwxq  1/1     Running   0          10m
+Run mvn clean package -DskipTests
+[INFO] BUILD SUCCESS
+[INFO] Total time: 15.234 s
+
+Run docker/login-action@v3
+Logging into Docker Hub: Login Succeeded!
+
+Run docker/build-push-action@v6
+#10 pushing layers done
+#11 pushing manifest for docker.io/ravitejadev950/85-github-actions-ci:latest done
 ```
 
-### Expected kubectl logs Response
+### Expected Docker Hub Tags Response
 
 ```text
-:: Spring Boot :: (v4.1.1)
-2026-10-17T13:11:50.315Z INFO 1 --- [84-k8s-deploy] [main] com.ravi.devops.k8sdeploy.Application : Starting Application v0.0.1-SNAPSHOT using Java 21.0.12.1 with PID 1 (/app/app.jar started by root in /app)
-2026-10-17T13:12:06.950Z INFO 1 --- [84-k8s-deploy] [main] o.s.boot.tomcat.TomcatWebServer : Tomcat initialized with port 9494 (http)
-2026-10-17T13:12:13.626Z INFO 1 --- [84-k8s-deploy] [main] o.s.boot.tomcat.TomcatWebServer : Tomcat started on port 9494 (http) with context path '/'
-2026-10-17T13:12:14.030Z INFO 1 --- [84-k8s-deploy] [main] com.ravi.devops.k8sdeploy.Application : Started Application in 30.084 seconds (process running for 37.743)
-2026-10-17T13:17:22.423Z INFO 1 --- [84-k8s-deploy] [nio-9494-exec-3] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring DispatcherServlet 'dispatcherServlet'
+TAG       LAST PUSHED        SIZE
+latest    a minute ago       182 MB
 ```
 
 **Testing Steps:**
 
-1. Run `docker build -t 84-k8s-deploy:latest .` - Should create image
-2. Run `kubectl apply -f k8s/` - Should create deployment + service
-3. Run `kubectl get pods` - Should show 2 pods 1/1 Running 0 Restarts
-4. Run `kubectl logs deployment/k8s-deploy --tail=30` - Should show Tomcat started on port 9494
-5. Run `kubectl port-forward svc/k8s-service 3000:9494` - Should show Forwarding from 127.0.0.1:3000 -> 9494
-6. Open `http://localhost:3000` - Should return K8s Ready JSON
-7. Check `Handling connection for 3000` in port-forward terminal - Proof traffic
+1. Run `git push origin main` - Should trigger workflow in Actions tab
+2. Check `Actions Tab -> Workflow -> build-and-push -> SUCCESS Green`
+3. Check `Docker Hub -> ravitejadev950/85-github-actions-ci -> latest tag updated now`
+4. Run `docker pull ravitejadev950/85-github-actions-ci:latest` - Should pull CI built image
+5. Run `docker run -p 9494:9494 ravitejadev950/85-github-actions-ci:latest` - Should start Spring Boot
+6. Open `http://localhost:9494` - Should return CI Ready JSON
+7. Check `Handling - Tomcat started on port 9494` in docker logs - Proof working
 
 ---
 
 # 🎯 Learning Outcomes
 
-- Understanding Kubernetes architecture - Pod vs Deployment vs Service vs NodePort
-- Creating deployment.yaml with replicas: 2, selector matchLabels
-- Using imagePullPolicy: IfNotPresent for local Docker images without registry
-- Enabling Docker Desktop containerd image store - For K8s to pull local images
-- Understanding NodePort vs ClusterIP vs LoadBalancer - 9494:30094 mapping
-- Handling port conflicts - `bind: Only one usage of each socket address` - Using alternate local port 3000
-- Using kubectl get pods, get svc, get deployments
-- Using kubectl logs with pod name and deployment name
-- Using kubectl port-forward svc/k8s-service 3000:9494 - Fix for Windows NodePort firewall
-- Understanding K8s auto-healing - 0 Restarts, 10m Age
-- Running Spring Boot inside K8s Pod - Tomcat 11.0.24 on 9494 inside Pod
-- Comparing Docker vs K8s - Project 83 Docker Ready on 9494 vs Project 84 K8s Ready on 3000
-- Debugging FailedToPullImage / ImagePullBackOff errors
-- Verifying K8s deployment with browser JSON response
-- Preparing base for CI/CD, EKS, Helm
+- Understanding CI/CD fundamentals - Continuous Integration vs Continuous Delivery vs Deployment
+- Creating GitHub Actions workflow - `.github/workflows/docker-ci.yml`
+- Using `on: push: branches: [main]` trigger - Auto run on push to main
+- Using `runs-on: ubuntu-latest` - GitHub hosted runner
+- Using `actions/checkout@v4` - Checkout code in runner
+- Using `actions/setup-java@v4` with `java-version: 21`, `distribution: temurin`, `cache: maven`
+- Using `mvn clean package -DskipTests` in CI runner - Build JAR inside GitHub
+- Using `docker/setup-buildx-action@v3` - For multi-arch builds
+- Using `docker/login-action@v3` with secrets - Secure Docker Hub login
+- Using `docker/build-push-action@v6` with `context: .`, `file: ./Dockerfile`, `push: true`, `tags:`
+- Understanding GitHub Secrets - `DOCKER_USERNAME` + `DOCKER_PASSWORD` encrypted storage
+- Understanding why Docker PAT needed - Docker Hub Personal Access Token vs Password
+- Debugging `denied: requested access to the resource is denied` - Missing secrets
+- Debugging YAML indentation errors - `with:` block spacing
+- Understanding difference between Project 83 (Manual Docker) vs Project 85 (Auto CI Docker Push)
+- Verifying CI with Actions GREEN tick + Docker Hub latest tag
+- Preparing base for CD, EKS, ArgoCD, Helm
 
 ---
 
 # 🚀 Future Enhancements
 
-- 🔄 Add GitHub Actions CI - Project 85 - Auto build & push to Docker Hub + Auto deploy to K8s on git push
-- ☁️ Deploy to AWS EKS - Project 86 - Run this deployment on EKS cluster
-- 📦 Add Helm Chart - Project 87 - Helm install for deployment + service
-- 🐬 Add MySQL with K8s Secret + ConfigMap - Project 88 - Connect Pod to MySQL Pod
-- 📊 Add Prometheus + Grafana Monitoring - Project 89 - Monitor Pods CPU/Memory
-- ⚖️ Add Ingress + Load Balancer - Project 90 - Nginx Ingress for 84-k8s-deploy
-- 🏗️ Add Terraform EKS Script - Project 91 - IaC for EKS infrastructure
-- 🔵🟢 Add Blue-Green Deploy - Project 92 - Zero-downtime deployment with 2 deployments
-- 📉 Optimize Dockerfile - Multi-stage build - Reduce image from 350MB to 150MB
-- 🔍 Add K8s Liveness & Readiness Probes - HTTP GET / on port 9494
-- 📝 Add K8s HPA - Horizontal Pod Autoscaler - Scale 2 to 10 pods on CPU
-- 🔐 Add K8s Secrets for application.properties
+- 🔄 Add CD - Deploy to K8s - Project 86 - After CI Build & Push, auto `kubectl apply -f k8s/`
+- ☁ Push to AWS ECR instead of Docker Hub - Project 87 - Use `aws-actions/configure-aws-credentials` + `amazon-ecr-login`
+- 📦 Add Helm + ArgoCD - Project 88 - GitOps CD with ArgoCD watching Docker Hub image
+- 🐬 Add MySQL + Docker Compose in CI - Project 89 - Integration tests with MySQL service container
+- 📊 Add SonarQube Code Scan in Workflow - Project 90 - Quality gate before Docker push
+- ⚖ Add Trivy Security Scan - Project 91 - Scan image for vulnerabilities before push
+- 🏗 Add Multi-Stage Dockerfile - Project 92 - Reduce image from 350MB to 80MB with `eclipse-temurin:21-jre-alpine`
+- 🔵🟢 Add Blue-Green with K8s - Project 93 - CI pushes 2 tags `blue` and `green`
+- 📉 Add Caching - `actions/cache@v4` for `.m2` - Reduce build time from 3m to 1m
+- 🔍 Add Version Tagging - `latest` + `v1.0.${{ github.run_number }}` - Semantic versioning via CI
+- 📝 Add Slack Notification - Project 94 - Notify Slack on CI SUCCESS/FAILURE
+- 🔐 Add Self-Hosted Runner - Project 95 - Run CI on own EC2 instead of ubuntu-latest
 
 ---
 
@@ -540,7 +491,7 @@ Java Full Stack Developer
 
 100 Java Full Stack Projects Challenge
 
-Project 84 / 100
+Project 85 / 100
 
 Tier 9 – DevOps + Cloud Deployment
 
@@ -550,17 +501,16 @@ Tier 9 – DevOps + Cloud Deployment
 
 If you found this project helpful, consider giving it a ⭐ Star on GitHub.
 
-**Single Repo:** [84-k8s-deploy](https://github.com/raviteja-dev950/84-k8s-deploy)
+**Single Repo:** [85-github-actions-ci](https://github.com/raviteja-dev950/85-github-actions-ci)
 
-**Docker Image:** `84-k8s-deploy:latest`
+**Docker Image:** `ravitejadev950/85-github-actions-ci:latest`
 
-**K8s Deployment:** `k8s-deploy` - 2 replicas - Port 9494
+**GitHub Actions:** `Docker CI - Build & Push` - On Push to `main`
 
-**K8s Service:** `k8s-service` - NodePort 9494:30094
+**Secrets:** `DOCKER_USERNAME` + `DOCKER_PASSWORD` (Docker PAT)
 
-**Port-Forward:** `kubectl port-forward svc/k8s-service 3000:9494` -> `http://localhost:3000`
+**Trigger:** `git push origin main` -> Actions GREEN -> Docker Hub latest
 
-**Build:** `docker build -t 84-k8s-deploy:latest .`
+**Pull:** `docker pull ravitejadev950/85-github-actions-ci:latest`
 
-**Apply:** `kubectl apply -f k8s/`
-
+**Run:** `docker run -p 9494:9494 ravitejadev950/85-github-actions-ci:latest` -> `http://localhost:9494`
