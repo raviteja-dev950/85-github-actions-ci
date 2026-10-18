@@ -1,14 +1,14 @@
 # 🚀 Project 85 – GitHub Actions CI + Docker Build & Push | Full Stack DevOps System | CI Ready
 
-[Java 21](https://img.shields.io/badge/Java-21-E76F00?logo=openjdk&logoColor=white)
-[Spring Boot 3.4.5](https://img.shields.io/badge/Spring%20Boot-3.4.5-6DB33F?logo=springboot&logoColor=white)
-[Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)
-[GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%20Ready-2088FF?logo=githubactions&logoColor=white)
-[Workflow](https://img.shields.io/badge/Workflow-Build%20&%20Push-2088FF)
-[Maven](https://img.shields.io/badge/Maven-3.9+-C71A36?logo=apachemaven&logoColor=white)
-[Tomcat](https://img.shields.io/badge/Apache%20Tomcat-11.0.24-D4AF00?logo=apachetomcat&logoColor=white)
-[Port](https://img.shields.io/badge/Port-9494%20%7C%208080-20B000)
-[Status](https://img.shields.io/badge/Status-CI%20Ready-20B000)
+![Java 21](https://img.shields.io/badge/Java-21-E76F00?logo=openjdk&logoColor=white)
+![Spring Boot 3.4.5](https://img.shields.io/badge/Spring%20Boot-3.4.5-6DB33F?logo=springboot&logoColor=white)
+![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%20Ready-2088FF?logo=githubactions&logoColor=white)
+![Workflow](https://img.shields.io/badge/Workflow-Build%20&%20Push-2088FF)
+![Maven](https://img.shields.io/badge/Maven-3.9+-C71A36?logo=apachemaven&logoColor=white)
+![Tomcat](https://img.shields.io/badge/Apache%20Tomcat-11.0.24-D4AF00?logo=apachetomcat&logoColor=white)
+![Port](https://img.shields.io/badge/Port-9494%20%7C%208080-20B000)
+![Status](https://img.shields.io/badge/Status-CI%20Ready-20B000)
 
 ---
 
