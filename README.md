@@ -10,13 +10,11 @@
 ![Port](https://img.shields.io/badge/Port-9494%20%7C%208080-20B000)
 ![Status](https://img.shields.io/badge/Status-CI%20Ready-20B000)
 
-# 85 - 【entity-GitHub¦canonical_name=GitHub】 Actions CI 🚀
-
-[![Live](https://img.shields.io/badge/Live-Render-brightgreen?style=for-the-badge&logo=render)](https://eight5-github-actions-ci.onrender.com)
-[![Java](https://img.shields.io/badge/Java-21-orange)]()
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue)]()
 
 **Live URL:** https://eight5-github-actions-ci.onrender.com
+
+[![Live](https://img.shields.io/badge/Live-Render-brightgreen?style=for-the-badge&logo=render)](https://eight5-github-actions-ci.onrender.com)
+
 
 Project 85 - Part of Java 100 Projects Challenge - DevOps + Cloud Tier
 ---
